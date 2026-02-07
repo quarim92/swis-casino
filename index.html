@@ -8,136 +8,78 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap');
-
-        body {
-            margin: 0; padding: 0; height: 100vh; display: flex; align-items: center; justify-content: center;
-            font-family: 'Ubuntu', sans-serif;
-            background: #0078d7 url('https://images.unsplash.com/photo-1500628550463-c8881a54d4d4?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat;
-            overflow: hidden; color: #003366;
-        }
-
-        /* ПРОФИЛЬ И КНОПКА ВЫВОДА */
-        .user-profile {
-            position: fixed; top: 15px; left: 15px; z-index: 100;
-            display: flex; align-items: center; gap: 10px;
-            background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            padding: 5px 12px 5px 5px; border-radius: 50px; border: 2px solid rgba(255, 255, 255, 0.7);
-        }
-        .user-avatar { width: 32px; height: 32px; border-radius: 50%; border: 2px solid #fff; object-fit: cover; }
+        body { margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center; font-family: 'Ubuntu', sans-serif; background: #0078d7 url('https://images.unsplash.com/photo-1500628550463-c8881a54d4d4?auto=format&fit=crop&w=1500&q=80') center/cover; overflow: hidden; }
         
-        .withdraw-btn {
-            position: fixed; top: 15px; right: 15px; z-index: 100;
-            background: linear-gradient(180deg, #4ade80 0%, #16a34a 100%);
-            color: white; font-weight: 800; font-size: 12px; padding: 8px 16px;
-            border-radius: 50px; border: 2px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 4px 15px rgba(22, 163, 74, 0.4); cursor: pointer;
-        }
+        .user-profile { position: fixed; top: 15px; left: 15px; z-index: 100; display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.4); backdrop-filter: blur(10px); padding: 5px 12px; border-radius: 50px; border: 2px solid #fff; }
+        .user-avatar { width: 30px; height: 30px; border-radius: 50%; border: 1px solid #fff; }
+        
+        .withdraw-btn { position: fixed; top: 15px; right: 15px; z-index: 100; background: linear-gradient(180deg, #4ade80, #16a34a); color: white; font-weight: 800; padding: 8px 16px; border-radius: 50px; border: 2px solid #fff; box-shadow: 0 4px 15px rgba(22,163,74,0.4); cursor: pointer; font-size: 12px; }
 
-        /* АКВАРИУМ */
-        #aquarium { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
-        .fish { position: absolute; font-size: 24px; animation: swim linear infinite; opacity: 0.7; }
-        @keyframes swim { from { transform: translateX(-15vw); } to { transform: translateX(115vw); } }
-        .bubble { position: absolute; background: rgba(255, 255, 255, 0.4); border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 50%; animation: rise linear infinite; }
-        @keyframes rise { 0% { transform: translateY(110vh) scale(0.5); opacity: 0; } 100% { transform: translateY(-10vh) scale(1.2); opacity: 0; } }
-
-        /* КОРПУС */
-        .casino-cabinet {
-            background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 3px solid rgba(255, 255, 255, 0.7); border-radius: 40px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.3); width: 92vw; max-width: 380px; padding: 20px;
-            position: relative; z-index: 10; display: flex; flex-direction: column; gap: 15px;
-        }
-
-        .logo-text {
-            font-size: 2.8rem; font-weight: 900; background: linear-gradient(to bottom, #00a3ff, #005a9e);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; font-style: italic;
-        }
-
-        .display-screen {
-            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6));
-            border-radius: 25px; padding: 12px; border: 2px solid #fff;
-        }
-
-        .reels-area {
-            background: #fff; border-radius: 25px; height: 130px; display: flex; gap: 8px; padding: 8px;
-            position: relative; border: 4px solid #e1f5fe; overflow: hidden;
-        }
-        .reel-col { flex: 1; height: 100%; position: relative; overflow: hidden; background: #f8fdff; border-radius: 12px; }
+        .casino-cabinet { background: rgba(255,255,255,0.25); backdrop-filter: blur(20px); border: 3px solid rgba(255,255,255,0.7); border-radius: 40px; width: 92vw; max-width: 380px; padding: 20px; z-index: 10; display: flex; flex-direction: column; gap: 15px; box-shadow: 0 30px 60px rgba(0,0,0,0.3); }
+        .logo-text { font-size: 2.5rem; font-weight: 900; background: linear-gradient(to bottom, #00a3ff, #005a9e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center; font-style: italic; }
+        
+        .display-screen { background: white; border-radius: 25px; padding: 15px; border: 2px solid #fff; box-shadow: inset 0 2px 10px rgba(0,0,0,0.1); }
+        .reels-area { background: #fff; border-radius: 20px; height: 120px; display: flex; gap: 5px; padding: 5px; border: 4px solid #e1f5fe; overflow: hidden; }
+        .reel-col { flex: 1; overflow: hidden; background: #f8fdff; border-radius: 10px; position: relative; }
         .strip-inner { position: absolute; width: 100%; display: flex; flex-direction: column; transition: transform 3s cubic-bezier(0.15, 0, 0.1, 1); }
-        .sym { height: 114px; display: flex; align-items: center; justify-content: center; font-size: 2.8rem; }
+        .sym { height: 104px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
 
-        .action-btn {
-            background: linear-gradient(180deg, #5ecfff 0%, #0078d7 50%, #005a9e 100%);
-            border: 2px solid rgba(255,255,255,0.6); border-radius: 20px; color: white;
-            font-weight: bold; padding: 15px; font-size: 1.25rem; box-shadow: 0 10px 20px rgba(0, 120, 215, 0.3);
-        }
-
-        .inventory-item { display: inline-flex; align-items: center; background: white; padding: 2px 10px; border-radius: 10px; font-size: 11px; font-weight: bold; border: 1px solid #e0f2f1; }
-        .clover-glow { border-color: #4ade80 !important; box-shadow: 0 0 25px rgba(74, 222, 128, 0.5) !important; }
-
-        /* МОДАЛКИ */
-        .aero-modal {
-            background: rgba(255, 255, 255, 0.95); border-radius: 35px; border: 3px solid #00a3ff;
-            padding: 30px; box-shadow: 0 0 50px rgba(0,0,0,0.2);
-        }
+        .action-btn { background: linear-gradient(180deg, #5ecfff, #0078d7); color: white; font-weight: bold; padding: 15px; border-radius: 20px; border: 2px solid #fff; box-shadow: 0 10px 20px rgba(0,120,215,0.3); width: 100%; }
+        .aero-modal { background: rgba(255, 255, 255, 0.98); border-radius: 30px; border: 3px solid #00a3ff; padding: 25px; box-shadow: 0 0 50px rgba(0,0,0,0.2); width: 90%; max-width: 340px; }
+        .inventory-item { display: inline-flex; align-items: center; background: white; padding: 2px 8px; border-radius: 8px; font-size: 10px; border: 1px solid #eee; }
     </style>
 </head>
 <body>
 
     <div class="user-profile">
         <img id="user-pic" class="user-avatar" src="https://via.placeholder.com/100" alt="Ava">
-        <span id="user-display-name" class="user-name">Player</span>
+        <span id="user-display-name" class="user-name">Игрок</span>
     </div>
 
-    <button class="withdraw-btn" onclick="openWithdraw()">ВЫВОД</button>
-
-    <div id="aquarium"></div>
+    <button class="withdraw-btn" onclick="openModal('withdraw-modal')">ВЫВОД</button>
 
     <div class="casino-cabinet" id="main-cabinet">
-        <header class="main-header"><div class="logo-text">SwisCasino</div></header>
-
+        <div class="logo-text">SwisCasino</div>
         <div class="display-screen">
-            <div class="text-[10px] font-bold text-sky-600 uppercase text-center mb-1">Ваш Баланс</div>
+            <div class="text-[10px] font-bold text-sky-600 uppercase text-center">Баланс</div>
             <div class="text-4xl font-black text-sky-900 text-center" id="bal-val">1000</div>
-            <div class="flex justify-center gap-2 mt-2 h-6">
+            <div class="flex justify-center gap-2 mt-2 h-5">
                 <div id="item-c" class="hidden inventory-item text-green-600">🍀 <span id="c-count">0</span></div>
                 <div id="item-b" class="hidden inventory-item text-orange-600">🍔 <span id="b-count">0</span></div>
             </div>
         </div>
-
         <div class="reels-area">
             <div class="reel-col"><div id="s1" class="strip-inner"></div></div>
             <div class="reel-col"><div id="s2" class="strip-inner"></div></div>
             <div class="reel-col"><div id="s3" class="strip-inner"></div></div>
         </div>
-
         <div class="flex flex-col gap-3">
-            <input type="number" id="bet-val" value="10" min="10" class="w-full bg-white/80 border-2 border-sky-100 rounded-2xl p-3 text-center text-xl font-black text-sky-900 outline-none">
-            <button id="spin-btn" onclick="triggerSpin()" class="action-btn">КРУТИТЬ</button>
-            <div class="text-[9px] font-bold text-sky-800/40 text-center uppercase cursor-pointer" onclick="togglePromo(true)">Бонус-код</div>
+            <input type="number" id="bet-val" value="10" min="10" class="w-full bg-white border-2 border-sky-100 rounded-xl p-2 text-center text-xl font-bold outline-none">
+            <button id="spin-btn" onclick="triggerSpin()" class="action-btn">ИГРАТЬ</button>
+            <div class="text-[10px] text-center opacity-40 uppercase font-bold cursor-pointer" onclick="openModal('promo-modal')">Промокод</div>
         </div>
-        <div id="status-line" class="text-center h-4 text-xs font-bold italic text-sky-700 mt-2"></div>
+        <div id="status-line" class="text-center h-4 text-xs font-bold italic text-sky-700"></div>
     </div>
 
-    <div id="withdraw-modal" class="fixed inset-0 bg-sky-900/40 backdrop-blur-sm hidden flex items-center justify-center z-[200] p-6">
-        <div class="aero-modal w-full max-w-[320px] text-center">
-            <h3 class="text-xl font-black text-green-600 mb-2 uppercase">Вывод средств</h3>
-            <p class="text-xs text-sky-800 mb-4">10,000 монет = 15 звёзд ⭐</p>
-            <div class="bg-white/50 p-4 rounded-2xl border border-sky-100 mb-4 text-sm font-medium">
-                Для вывода напишите <br>
-                <a href="https://t.me/AlexFin_Official" class="text-blue-600 font-bold underline">@AlexFin_Official</a> <br>
-                и прикрепите скриншот баланса.
+    <div id="withdraw-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center z-[200]">
+        <div class="aero-modal text-center">
+            <h3 class="text-xl font-black text-green-600 mb-2">МЕНЮ ВЫВОДА</h3>
+            <div class="text-left bg-sky-50 p-4 rounded-2xl text-xs space-y-2 text-sky-900 mb-4 border border-sky-100">
+                <p>💰 <b>Курс:</b> 10,000 монет = 15 звёзд ⭐</p>
+                <p>📉 <b>Минимум:</b> 10,000 монет.</p>
+                <p>📝 <b>Инструкция:</b> Сделайте скриншот баланса и отправьте его администратору.</p>
             </div>
-            <button onclick="closeWithdraw()" class="action-btn w-full py-2 text-sm">ПОНЯТНО</button>
+            <a href="https://t.me/AlexFin_Official" class="block w-full bg-blue-500 text-white py-3 rounded-xl font-bold mb-3 shadow-lg">НАПИСАТЬ АДМИНУ</a>
+            <button onclick="closeModal('withdraw-modal')" class="text-gray-400 font-bold text-xs uppercase">Закрыть</button>
         </div>
     </div>
 
-    <div id="promo-modal" class="fixed inset-0 bg-sky-900/30 backdrop-blur-sm hidden flex items-center justify-center z-[200] p-6">
-        <div class="aero-modal w-full max-w-[300px] text-center">
-            <h3 class="text-lg font-black text-sky-700 mb-4 uppercase">Бонус-код</h3>
-            <input type="text" id="code-in" class="w-full border-2 border-sky-100 rounded-xl p-3 text-center font-bold mb-4 uppercase outline-none">
-            <button onclick="apply()" class="action-btn w-full py-3 text-sm">ОК</button>
-            <button onclick="togglePromo(false)" class="mt-4 text-[10px] font-bold text-gray-400">ЗАКРЫТЬ</button>
+    <div id="promo-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center z-[200]">
+        <div class="aero-modal text-center">
+            <h3 class="text-lg font-bold text-sky-700 mb-4">БОНУС-КОД</h3>
+            <input type="text" id="code-in" class="w-full border-2 border-sky-100 rounded-xl p-3 text-center mb-4 uppercase outline-none font-bold">
+            <button onclick="apply()" class="action-btn py-2">АКТИВИРОВАТЬ</button>
+            <button onclick="closeModal('promo-modal')" class="mt-4 text-xs text-gray-400">ОТМЕНА</button>
         </div>
     </div>
 
@@ -146,22 +88,16 @@
         tg.expand(); tg.ready();
 
         const SYMS = ['🍎', '🍌', '🍋', '🫐', '7️⃣', '➖'];
-        const DATA = { '7️⃣': {w:1, m3:100, m2:10}, '🍎': {w:3, m3:10, m2:3}, '🍌': {w:5, m3:5, m2:2}, '🍋': {w:7, m3:3, m2:1.5}, '🫐': {w:10, m3:2, m2:1.2}, '➖': {w:6, m3:-5, m2:-1.5} };
+        // Коэффициенты для 3-х символов
+        const MULTIPLIERS = { '7️⃣': 100, '🍎': 10, '🍌': 5, '🍋': 3, '🫐': 2, '➖': -2 };
 
-        let state = { bal:1000, c:0, b:0, busy:false, used: new Set() };
+        let state = { bal: 1000, c: 0, b: 0, busy: false, used: new Set() };
 
         function init() {
             if (tg.initDataUnsafe?.user) {
-                const user = tg.initDataUnsafe.user;
-                document.getElementById('user-display-name').innerText = user.first_name;
-                if (user.photo_url) document.getElementById('user-pic').src = user.photo_url;
-            }
-            const aq = document.getElementById('aquarium');
-            for(let i=0; i<15; i++) {
-                let b = document.createElement('div'); b.className = 'bubble';
-                let s = Math.random()*20+10; b.style.width = s+'px'; b.style.height = s+'px';
-                b.style.left = Math.random()*100+'vw'; b.style.animationDuration = (Math.random()*5+5)+'s';
-                aq.appendChild(b);
+                const u = tg.initDataUnsafe.user;
+                document.getElementById('user-display-name').innerText = u.first_name;
+                if (u.photo_url) document.getElementById('user-pic').src = u.photo_url;
             }
             [1,2,3].forEach(id => {
                 const s = document.getElementById('s'+id);
@@ -180,75 +116,87 @@
             document.getElementById('b-count').innerText = state.b;
             document.getElementById('item-c').classList.toggle('hidden', state.c <= 0);
             document.getElementById('item-b').classList.toggle('hidden', state.b <= 0);
-            document.getElementById('main-cabinet').classList.toggle('clover-glow', state.c > 0);
         }
 
         function triggerSpin() {
-            if(state.busy) return;
+            if (state.busy) return;
             const bet = parseInt(document.getElementById('bet-val').value);
-            if(bet > state.bal) return msg("Мало монет", "red");
+            if (bet > state.bal || bet < 10) { tg.showAlert("Недостаточно средств или неверная ставка"); return; }
             
             tg.HapticFeedback?.impactOccurred('medium');
-            state.bal -= bet;
-            let lucky = state.c > 0;
-            if(lucky) state.c--;
-            state.busy = true; update();
-
+            state.bal -= bet; state.busy = true; update();
+            
             let res = [];
             [1,2,3].forEach((id, i) => {
                 const strip = document.getElementById('s'+id);
-                let pick = (lucky && Math.random() < 0.3) ? '7️⃣' : SYMS[Math.floor(Math.random()*SYMS.length)];
+                let pick = SYMS[Math.floor(Math.random()*SYMS.length)];
+                if(state.c > 0 && Math.random() < 0.2) pick = '7️⃣';
                 res.push(pick);
                 strip.lastElementChild.innerText = pick;
                 strip.style.transition = 'none'; strip.style.transform = 'translateY(0)';
                 setTimeout(() => {
                     strip.style.transition = `transform ${2 + i*0.4}s cubic-bezier(0.1, 0, 0.1, 1)`;
-                    strip.style.transform = `translateY(-${(40-1)*114}px)`;
+                    strip.style.transform = `translateY(-${(40-1)*104}px)`;
                 }, 50);
             });
 
+            if(state.c > 0) state.c--;
+
             setTimeout(() => {
-                state.busy = false; checkWin(res, bet);
-            }, 3100);
+                state.busy = false;
+                calculateWin(res, bet);
+            }, 3200);
         }
 
-        function checkWin(res, bet) {
+        function calculateWin(res, bet) {
             const [a, b, c] = res;
             let win = 0;
-            if(a===b && b===c) win = bet * 5;
-            else if(a===b || b===c || a===c) win = Math.floor(bet * 1.5);
+            let statusText = "Повезет снова!";
+            let color = "#0078d7";
+
+            if (a === b && b === c) {
+                // Три в ряд
+                if (a === '➖') {
+                    win = bet * MULTIPLIERS[a]; // -2x (штраф)
+                    statusText = "КРАХ! ШТРАФ x2"; color = "red";
+                } else {
+                    win = bet * MULTIPLIERS[a];
+                    statusText = "ДЖЕКПОТ!"; color = "green";
+                }
+            } else if (a === b || b === c || a === c) {
+                // Два в ряд
+                let pair = (a === b) ? a : (b === c ? b : a);
+                if (pair === '➖') {
+                    win = 0; // Просто теряет ставку (уже вычтена)
+                    statusText = "BAR: Ставка потеряна"; color = "orange";
+                } else {
+                    win = Math.floor(bet * (MULTIPLIERS[pair] / 2));
+                    statusText = "ПАРА!"; color = "#2e7d32";
+                }
+            }
+
             state.bal += win;
-            msg(win > 0 ? `+${win}!` : "Мимо", win > 0 ? "green" : "#0078d7");
+            if (win > 0) tg.HapticFeedback?.notificationOccurred('success');
+            msg(statusText, color);
             update();
         }
 
         function msg(t, c) { let e = document.getElementById('status-line'); e.innerText = t; e.style.color = c; }
-        
-        function togglePromo(s) { document.getElementById('promo-modal').classList.toggle('hidden', !s); }
-        function openWithdraw() {
-            if (state.bal < 10000) {
-                tg.showAlert("Минимальный баланс для вывода: 10,000 монет. Сейчас: " + state.bal);
-                return;
-            }
-            document.getElementById('withdraw-modal').classList.remove('hidden');
-        }
-        function closeWithdraw() { document.getElementById('withdraw-modal').classList.add('hidden'); }
+        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
         function apply() {
             const f = document.getElementById('code-in');
             const v = f.value.trim().toUpperCase();
-            if(!v || state.used.has(v)) return;
-
             let ok = false;
-            if(v === 'REBOOT') { state.bal += 1000; ok = true; }
-            else if(v === 'CLOVER') { state.c += 3; ok = true; }
-            else if(v === 'AF') { state.bal += 13; ok = true; }
-            else if(v === 'WEIMIX') { state.bal += 56; ok = true; }
-            else if(v === 'VAITEK') { state.b += 1; ok = true; }
+            if (v === 'AF') { state.bal += 13; ok = true; }
+            else if (v === 'WEIMIX') { state.bal += 56; ok = true; }
+            else if (v === 'VAITEK') { state.b += 1; ok = true; }
+            else if (v === 'REBOOT') { state.bal += 1000; ok = true; }
+            else if (v === 'CLOVER') { state.c += 3; ok = true; }
 
             if(ok) {
-                state.used.add(v); update(); f.value = ""; togglePromo(false);
-                tg.HapticFeedback?.notificationOccurred('success');
+                state.used.add(v); update(); f.value = ""; closeModal('promo-modal');
                 msg("КОД ПРИНЯТ", "green");
             }
         }
@@ -256,5 +204,4 @@
         window.onload = init;
     </script>
 </body>
-  </html>
-  
+</html>
